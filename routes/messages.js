@@ -40,5 +40,48 @@ router.post('/add/:token', (req, res) => {
         }
       )
     })
-  })
+  });
+
+
+  router.delete('/delete/:idMessage/:token', (req, res) => {
+    const {idMessage, token} = req.params
+    Users.find({token: token}).then(data => {
+      const idUser = data['_id'];
+  
+      Message.deleteOne({id: idMessage}, ).then(
+        data => {
+          res.json({result: true})
+        }
+      )
+    })
+  });
+
+  router.get('/allMessage/:token', (req, res) => {
+    const {token} = req.params
+    Users.find({token: token}).then(data => {
+      const idUser = data['_id'];
+  
+      Message.find().then(
+        data => {
+          res.json({result: true, messages: data})
+        }
+      )
+    })
+  });
+
+  router.get('/:idUser', (req, res) => {
+    const {idUser} = req.params
+    Users.find({id: idUser}).then(data => {  
+      Message.find({idUser: idUser}).then(
+        data => {
+          res.json({result: true, messages: data})
+        }
+      )
+    })
+  });
+
+
+
   module.exports = router;
+
+  

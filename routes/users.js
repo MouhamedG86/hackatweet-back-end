@@ -25,7 +25,7 @@ router.post('/signup', (req, res) => {
       });
     } else {
       // User already exists in database
-      res.json({ result: false, error: 'User already exists' });
+      res.json({ result: false, error: 'utilisateur existe déja' });
     }
   });
 });
@@ -39,7 +39,7 @@ router.post('/signin', (req, res) => {
     if (data && bcrypt.compareSync(req.body.password, data.password)) {
       res.json({ result: true, token: data.token });
     } else {
-      res.json({ result: false, error: 'User not found or wrong password' });
+      res.json({ result: false, error: 'mot de passe erroné ou utilisateur inexistant' });
     }
   });
   });
